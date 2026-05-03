@@ -85,19 +85,19 @@ jobs:
         if: steps.version-check.outputs.is_dev == 'false'
         run: ./gradlew clean
       - name: Build with Gradle
-        run: ./gradlew app:assembleRelease
+        run: ./gradlew app:assembleDebug
       - name: Upload built Foss apk
-        if: success() && github.event_name != 'pull_request' && github.repository == 'LibChecker/LibChecker'
-        uses: actions/upload-artifact@v7
+        if: success()
+        uses: actions/upload-artifact@v4
         with:
-          name: Foss
-          path: ${{ github.workspace }}/app/build/outputs/apk/foss/release
+          name: Foss-Debug
+          path: ${{ github.workspace }}/app/build/outputs/apk/foss/debug
       - name: Upload built Market apk
-        if: success() && github.event_name != 'pull_request' && github.repository == 'LibChecker/LibChecker'
-        uses: actions/upload-artifact@v7
+        if: success()
+        uses: actions/upload-artifact@v4
         with:
-          name: Market
-          path: ${{ github.workspace }}/app/build/outputs/apk/market/release
+          name: Market-Debug
+          path: ${{ github.workspace }}/app/build/outputs/apk/market/debug
       - name: Upload mappings
         if: success() && github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
         uses: actions/upload-artifact@v7
